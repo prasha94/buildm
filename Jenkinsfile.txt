@@ -22,10 +22,14 @@ node{
             def server = Artifactory.server 'jfrog'
             server.bypassProxy = true
             server.username = 'admin'
-            server.password = 'admin'	    
+            server.password = 'admin'
+	    
             buildInfo.env.filter.reset()
-	    def buildInfo = Artifactory.newBuildInfo()
+	    buildInfo.env.filter.clear()
+	    buildInfo.env.collect()
+	    value = buildInfo.env.vars['env-var-name']
 	    buildInfo.env.capture = true
+	    
             server.connection.timeout = 300
             def uploadSpec = """{
                 "files": [
