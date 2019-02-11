@@ -18,7 +18,7 @@ node{
 		}
 		stage('save-artifacts'){
 		def server = Artifactory.server 'jfrog'
-		rtmaventool = maven
+		rtmaventool = 'maven'
 		rtmaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
 		rtmaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
 		def buildinfo = Artifactory.newBuildInfo()
