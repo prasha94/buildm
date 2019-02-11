@@ -2,7 +2,7 @@
 
 This is example ready-to-deploy java web application built for Tomcat using Maven and webapp-runner.
 
-## Running Locally
+## Run Locally
 
 (need maven and java installed)
 
