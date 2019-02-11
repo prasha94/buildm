@@ -1,74 +1,14 @@
 node{
-        properties([pipelineTriggers([pollSCM('* * * * *')])])
-        stage('checkout'){
-            git url: 'https://github.com/prasha94/buildm.git'
-            echo 'git checkout'
-        }
-        stage('build'){
-            def mvnHome = tool 'maven'
-            env.PATH = "${mvnHome}/bin:${env.PATH}"
-            sh 'mvn -B clean verify'
-            echo 'maven build'
-        }
-        stage('sonar analysis'){
-			def mvnHome = tool 'maven'
-			withSonarQubeEnv('sonar'){
-				sh "${mvnHome}/bin/mvn sonar:sonar"
-			}
-		}
-		stage('save-artifacts'){
-		def server = Artifactory.server 'jfrog'
-		rtmaventool = 'maven'
-		rtmaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-		rtmaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-		def buildinfo = Artifactory.newBuildInfo()
-		
-           archiveArtifacts artifacts: 'target/*.war'
-            echo 'Archiving Completed'
-            
-            server.bypassProxy = true
-            server.username = 'admin'
-            server.password = 'admin'
-            server.connection.timeout = 300
-	    
-	    	
+def server = Artifactory.server 'jfrog'
+def rtMaven = Artifactory.newMavenbuild()
 
-            def uploadSpec = """{
-                "files": [
-                {
-                "pattern": "target/*.war",
-                "target": "maven/"
-                }
-                ]
-                }"""
-            server.upload spec: uploadSpec
-            def downloadSpec = """{
-                "files": [
-                {
-                "pattern": "/target/*.war",
-                "target": "maven/"
-                }
-                ]
-                }"""
-            server.download spec: downloadSpec
+stage 'Build'
+git url: 'https://github.com/prasha94/buildm.git'
 
-            def buildInfo1 = server.download downloadSpec
-            def buildInfo2 = server.upload uploadSpec
-            buildInfo1.append buildInfo2
-            server.publishBuildInfo buildInfo1
-
-            def buildInfo = Artifactory.newBuildInfo()
-            server.download spec: downloadSpec, buildInfo: buildInfo
-            server.upload spec: uploadSpec, buildInfo: buildInfo
-            server.publishBuildInfo buildInfo
-            buildInfo.env.capture = true      
-                    
-        }
-        stage('deploy'){
-            def userInput = input('Are you sure to Publish in prod?') 
-            sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
-            echo 'deploying application'
-        }
-       
-	
-    }
+stage 'artifactory configuration'
+rtmaventool = 'maven'
+rtmaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+rtmaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+def buildinfo = Artifactory.newBuildInfo()
+buildinfo.env.capture = true
+}
