@@ -28,7 +28,7 @@ node{
                 "files": [
                 {
                 "pattern": "target/*.war",
-                "target": "maven/"
+                "target": "maven/",
 		"regexp": "true"
                 }
                 ]
@@ -38,7 +38,7 @@ node{
                 "files": [
                 {
                 "pattern": "target/*.war",
-                "target": "maven/"
+                "target": "maven/",
 		"regexp": "true"
                 }
                 ]
