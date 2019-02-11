@@ -11,4 +11,10 @@ rtmaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-l
 rtmaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
 def buildinfo = Artifactory.newBuildInfo()
 buildinfo.env.capture = true
+
+stage 'execute maven'
+  rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+
+stage 'publish build info'
+  server.publishBuildInfo buildinfo
 }
