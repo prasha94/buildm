@@ -24,6 +24,11 @@ node{
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
+	    
+	    	copyArtifacts(projectName: 'original');
+		def built = build('original');
+		copyArtifacts(projectName: 'original', selector: specific("${built.number}"));
+
             def uploadSpec = """{
                 "files": [
                 {
