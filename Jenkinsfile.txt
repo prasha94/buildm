@@ -28,7 +28,7 @@ node{
                 "files": [
                 {
                 "pattern": "target/*.war",
-                "target": "libs-snapshot/"
+                "target": "maven/"
                 }
                 ]
                 }"""
@@ -37,7 +37,7 @@ node{
                 "files": [
                 {
                 "pattern": "target/*.war",
-                "target": "libs-snapshot/"
+                "target": "maven/"
                 }
                 ]
                 }"""
