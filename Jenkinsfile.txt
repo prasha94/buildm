@@ -16,8 +16,8 @@ node{
 				sh "${mvnHome}/bin/mvn sonar:sonar"
 			}
 		}
-		stage('save artifacts'){
-           archiveArtifacts artifacts: '**/target/*.war'
+		stage('save-artifacts'){
+           archiveArtifacts artifacts: '/var/lib/jenkins/workspace/original/target/*.war'
             echo 'Archiving Completed'
             def server = Artifactory.server 'jfrog'
             server.bypassProxy = true
@@ -27,7 +27,7 @@ node{
             def uploadSpec = """{
                 "files": [
                 {
-                "pattern": "target/*.war",
+                "pattern": "/var/lib/jenkins/workspace/original/target/*.war",
                 "target": "libs-snapshot/"
                 }
                 ]
@@ -36,7 +36,7 @@ node{
             def downloadSpec = """{
                 "files": [
                 {
-                "pattern": "target/*.war",
+                "pattern": "/var/lib/jenkins/workspace/original/target/*.war",
                 "target": "libs-snapshot/"
                 }
                 ]
@@ -57,7 +57,7 @@ node{
         }
         stage('deploy'){
             def userInput = input('Are you sure to Publish in prod?') 
-            sh 'scp /var/lib/jenkins/workspace/original/multi-module/webapp/target/*.war /apache-tomcat-7.0.92/webapps'
+            sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
             echo 'deploying application'
         }
        
