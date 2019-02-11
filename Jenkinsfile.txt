@@ -17,9 +17,15 @@ node{
 			}
 		}
 		stage('save-artifacts'){
+		def server = Artifactory.server 'jfrog'
+		rtmaventool = maven
+		rtmaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+		rtmaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+		def buildinfo = Artifactory.newBuildInfo()
+		
            archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
-            def server = Artifactory.server 'jfrog'
+            
             server.bypassProxy = true
             server.username = 'admin'
             server.password = 'admin'
