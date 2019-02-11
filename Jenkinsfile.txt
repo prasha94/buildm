@@ -25,10 +25,12 @@ node{
             server.password = 'admin' 
             server.connection.timeout = 300
             def uploadSpec = """{
+	    def ver = "$version"
                 "files": [
                 {
                 "pattern": "target/*.war",
                 "target": "maven/"
+		"regexp": "true"
                 }
                 ]
                 }"""
@@ -38,6 +40,7 @@ node{
                 {
                 "pattern": "target/*.war",
                 "target": "maven/"
+		"regexp": "true"
                 }
                 ]
                 }"""
