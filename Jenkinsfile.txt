@@ -55,6 +55,26 @@ node{
             buildInfo.env.capture = true      
                     
         }
+PUT /maven/*.war
+{
+"uri": "http://34.229.197.214:8081/artifactory/webapp/#/artifacts/browse/tree/General/maven/*.war",
+"downloadUri": "http://34.229.197.214:8081/artifactory/webapp/#/artifacts/browse/tree/General/maven/*.war",
+"repo": "maven",
+"path": "/maven/*.war",
+"created": ISO8601 (yyyy-MM-dd'T'HH:mm:ss.SSSZ),
+"createdBy": "admin",
+"size": "1024", //bytes
+"mimeType": "application/java-archive",
+"checksums":
+{
+        "md5" : string,
+        "sha1" : string
+    },
+"originalChecksums":{
+        "md5" : string,
+        "sha1" : string
+    }
+}
         stage('deploy'){
             def userInput = input('Are you sure to Publish in prod?') 
             sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
