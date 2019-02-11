@@ -24,8 +24,7 @@ node{
             server.username = 'admin'
             server.password = 'admin' 
             server.connection.timeout = 300
-            def uploadSpec = """{
-	    def ver = "$version"
+            def uploadSpec = """{	   
                 "files": [
                 {
                 "pattern": "target/*.war",
