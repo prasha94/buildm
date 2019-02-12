@@ -29,8 +29,8 @@ node{
             def uploadSpec = """{
                 "files": [
                 {
-                "pattern": "(target*)",
-                "target": "maven/{1}",
+                "pattern": "/target/*.war",
+                "target": "maven/",
 		  "props": "build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"
                 }
                 ]
