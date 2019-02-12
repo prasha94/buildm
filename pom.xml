@@ -28,23 +28,8 @@
             <goals><goal>copy</goal></goals>
             <configuration>
               <artifactItems>
-                <artifactItem>
-                  <groupId>com.github.jsimone</groupId>
-                  <artifactId>webapp-runner</artifactId>
-                  <version>8.5.11.3</version>
-                  <destFileName>webapp-runner.jar</destFileName>
-                </artifactItem>
-              </artifactItems>      
-
-              
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-
-  </build>
-		<distributionManagement>
+		      
+                <distributionManagement>
     <repository>
         <id>central</id>
         <name>5dce77d48056-releases</name>
@@ -56,6 +41,18 @@
         <url>http://3.90.141.166:8081/artifactory/maven</url>
     </snapshotRepository>
 </distributionManagement>
+		      
+              </artifactItems>      
+
+              
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+  </build>
+		
 
 </project>
 
