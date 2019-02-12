@@ -46,6 +46,13 @@
     </plugins>
 
   </build>
+	<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>5dce77d48056-releases</name>
+        <url>http://3.90.141.166:8081/artifactory/libs-release-local</url>
+    </repository>
+</distributionManagement>
 		
 
 </project>
