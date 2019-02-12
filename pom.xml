@@ -34,8 +34,7 @@
                   <version>8.5.11.3</version>
                   <destFileName>webapp-runner.jar</destFileName>
                 </artifactItem>
-              </artifactItems>
-              
+              </artifactItems>      
 
               
             </configuration>
@@ -43,6 +42,20 @@
         </executions>
       </plugin>
     </plugins>
+	<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>5dce77d48056-releases</name>
+        <url>http://3.90.141.166:8081/artifactory/maven</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>5dce77d48056-snapshots</name>
+        <url>http://3.90.141.166:8081/artifactory/maven</url>
+    </snapshotRepository>
+</distributionManagement>
   </build>
 
 </project>
+
+
