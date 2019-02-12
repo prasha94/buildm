@@ -17,32 +17,32 @@ node{
 			}
 		}
 		stage('save-artifacts'){
-           archiveArtifacts artifacts: 'target/*.war'
+		 archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
-            def server = Artifactory.server 'jfrog'
+		def server = Artifactory.server 'jfrog'
+		def buildinfo = Artifactory.newBuildInfo()        
             
+            server.bypassProxy = true
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
 	    
-	    
+	    	
+
             def uploadSpec = """{
                 "files": [
                 {
-                "pattern": "/target/*.war",
-                "target": "maven/",
-		  "props": "build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"
+                "pattern": "target/*.war",
+                "target": "maven/"
                 }
                 ]
                 }"""
             server.upload spec: uploadSpec
-	    
             def downloadSpec = """{
                 "files": [
                 {
                 "pattern": "/target/*.war",
-                "target": "libs-release-local/",
-		  "props": "build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"
+                "target": "maven/"
                 }
                 ]
                 }"""
@@ -57,7 +57,7 @@ node{
             server.download spec: downloadSpec, buildInfo: buildInfo
             server.upload spec: uploadSpec, buildInfo: buildInfo
             server.publishBuildInfo buildInfo
-            buildInfo.env.filter.reset()    
+            buildInfo.env.capture = true      
                     
         }
         stage('deploy'){
