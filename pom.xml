@@ -16,7 +16,7 @@
     </dependency>
   </dependencies>
 	
-	<dependencies>
+<dependencies>
     <dependency>
       <groupId>com.example</groupId>
       <artifactId>java-tomcat-mavenr</artifactId>
