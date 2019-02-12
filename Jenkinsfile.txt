@@ -30,7 +30,7 @@ node{
                 {
                 "pattern": "(target*)",
                 "target": "maven/{1}"
-		 "props": {"build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"}
+		  "props": "build.number=${BUILD_NUMBER}"
                 }
                 ]
                 }"""
@@ -41,7 +41,7 @@ node{
                 {
                 "pattern": "/target/*.war",
                 "target": "libs-release-local/"
-		 "props": {"build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"}
+		 "props": "build.number=${BUILD_NUMBER}"
                 }
                 ]
                 }"""
