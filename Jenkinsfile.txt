@@ -1,16 +1,30 @@
-stage('save-artifacts'){
-		 archiveArtifacts artifacts: 'target/*.war'
+node{
+        properties([pipelineTriggers([pollSCM('* * * * *')])])
+        stage('checkout'){
+            git url: 'https://github.com/prasha94/mbuild.git'
+            echo 'git checkout'
+        }
+        stage('build'){
+            def mvnHome = tool 'maven'
+            env.PATH = "${mvnHome}/bin:${env.PATH}"
+            sh 'mvn -B clean verify'
+            echo 'maven build'
+        }
+        stage('sonar analysis'){
+			def mvnHome = tool 'maven'
+			withSonarQubeEnv('sonar'){
+				sh "${mvnHome}/bin/mvn sonar:sonar"
+			}
+		}
+		stage('save-artifacts'){
+           archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
-		def server = Artifactory.server 'jfrog'
-		def buildinfo = Artifactory.newBuildInfo()        
+            def server = Artifactory.server 'jfrog'
             
-            //server.bypassProxy = true
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
 	    
-	    	
-
             def uploadSpec = """{
                 "files": [
                 {
@@ -20,7 +34,7 @@ stage('save-artifacts'){
                 ]
                 }"""
             server.upload spec: uploadSpec
-			
+	    
             def downloadSpec = """{
                 "files": [
                 {
@@ -43,3 +57,11 @@ stage('save-artifacts'){
             buildInfo.env.capture = true      
                     
         }
+        stage('deploy'){
+            def userInput = input('Are you sure to Publish in prod?') 
+            sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
+            echo 'deploying application'
+        }
+       
+	
+    }
