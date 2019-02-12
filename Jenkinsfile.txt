@@ -7,7 +7,7 @@ node{
         stage('build'){
             def mvnHome = tool 'maven'
             env.PATH = "${mvnHome}/bin:${env.PATH}"
-            sh 'mvn -B clean verify'
+            sh 'clean install -Dv=${BUILD_NUMBER}'
             echo 'maven build'
         }
         stage('sonar analysis'){
