@@ -15,6 +15,16 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+	
+	<dependencies>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>java-tomcat-mavenr</artifactId>
+      <version>${distversion}</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+	
   <build>
     <finalName>java-tomcat-maven</finalName>
     <plugins>
