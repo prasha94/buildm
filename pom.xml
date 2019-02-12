@@ -14,10 +14,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
-	
-<dependencies>
-    <dependency>
+	  <dependency>
       <groupId>com.example</groupId>
       <artifactId>java-tomcat-mavenr</artifactId>
       <version>${distversion}</version>
