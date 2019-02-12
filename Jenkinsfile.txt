@@ -29,8 +29,8 @@ node{
                 "files": [
                 {
                 "pattern": "(target*)",
-                "target": "maven/{1}"
-		  "props": "build.number=${BUILD_NUMBER}"
+                "target": "maven/{1}",
+		  "props": "build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"
                 }
                 ]
                 }"""
@@ -40,8 +40,8 @@ node{
                 "files": [
                 {
                 "pattern": "/target/*.war",
-                "target": "libs-release-local/"
-		 "props": "build.number=${BUILD_NUMBER}"
+                "target": "libs-release-local/",
+		  "props": "build.name=${JOB_NAME};build.number=${BUILD_NUMBER}"
                 }
                 ]
                 }"""
