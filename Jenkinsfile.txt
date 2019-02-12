@@ -25,6 +25,7 @@ node{
             server.password = 'admin'
             server.connection.timeout = 300
 	    
+	    
             def uploadSpec = """{
                 "files": [
                 {
@@ -56,7 +57,7 @@ node{
             server.download spec: downloadSpec, buildInfo: buildInfo
             server.upload spec: uploadSpec, buildInfo: buildInfo
             server.publishBuildInfo buildInfo
-            buildInfo.env.capture = true      
+            buildInfo.env.filter.reset()    
                     
         }
         stage('deploy'){
