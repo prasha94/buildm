@@ -25,6 +25,19 @@
     </dependency>
   </dependencies>
 	
+	<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>5dce77d48056-releases</name>
+        <url>http://3.90.141.166:8081/artifactory/maven</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>5dce77d48056-snapshots</name>
+        <url>http://3.90.141.166:8081/artifactory/maven</url>
+    </snapshotRepository>
+</distributionManagement>
+	
   <build>
     <finalName>java-tomcat-maven</finalName>
     <plugins>
