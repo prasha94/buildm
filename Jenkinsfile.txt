@@ -1,7 +1,7 @@
 node{
         properties([pipelineTriggers([pollSCM('* * * * *')])])
         stage('checkout'){
-            git url: 'https://github.com/prasha94/buildm.git'
+            git url: 'https://github.com/prasha94/mbuild.git'
             echo 'git checkout'
         }
         stage('build'){
@@ -17,19 +17,13 @@ node{
 			}
 		}
 		stage('save-artifacts'){
-		 archiveArtifacts artifacts: 'target/*.war'
+           archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
-		def server = Artifactory.server 'jfrog'
-		def buildInfo = Artifactory.newBuildInfo()        
-            
+            def server = Artifactory.server 'jfrog'
             server.bypassProxy = true
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
-	    buildInfo.env.collect()
-	    
-	    	
-
             def uploadSpec = """{
                 "files": [
                 {
@@ -39,7 +33,6 @@ node{
                 ]
                 }"""
             server.upload spec: uploadSpec
-	    
             def downloadSpec = """{
                 "files": [
                 {
@@ -55,7 +48,7 @@ node{
             buildInfo1.append buildInfo2
             server.publishBuildInfo buildInfo1
 
-            
+            def buildInfo = Artifactory.newBuildInfo()
             server.download spec: downloadSpec, buildInfo: buildInfo
             server.upload spec: uploadSpec, buildInfo: buildInfo
             server.publishBuildInfo buildInfo
