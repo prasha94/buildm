@@ -20,7 +20,7 @@ node{
 		 archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
 		def server = Artifactory.server 'jfrog'
-		def buildinfo = Artifactory.newBuildInfo()        
+		def buildInfo = Artifactory.newBuildInfo()        
             
             server.bypassProxy = true
             server.username = 'admin'
