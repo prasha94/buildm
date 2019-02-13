@@ -19,6 +19,7 @@ node{
 		stage('save-artifacts'){
            archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
+	    version=${pom.version}
             def server = Artifactory.server 'jfrog'
             server.bypassProxy = true
             server.username = 'admin'
@@ -27,7 +28,7 @@ node{
             def uploadSpec = """{
                 "files": [
                 {
-                "pattern": "target/*.war",
+                "pattern": "target/*.war.${version}",
                 "target": "maven/"
                 }
                 ]
@@ -36,7 +37,7 @@ node{
             def downloadSpec = """{
                 "files": [
                 {
-                "pattern": "/target/*.war",
+                "pattern": "/target/*.war.${version}",
                 "target": "maven/"
                 }
                 ]
