@@ -56,11 +56,13 @@ node{
             buildInfo.env.capture = true      
                     
         }
-        stage('deploy'){
+        //stage('deploy'){
             def userInput = input('Are you sure to Publish in prod?') 
             sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
             echo 'deploying application'
         }
-       
-	
+       stage('revert'){
+sh 'scp http://3.90.141.166:8081/artifactory/webapp/#/artifacts/browse/tree/General/maven/java-tomcat-maven.v1.1-SNAPSHOT.war /apache-tomcat-7.0.92/webapps'
+echo'reveted back!'
+	}
     }
