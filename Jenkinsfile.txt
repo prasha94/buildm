@@ -19,7 +19,7 @@ node{
 		stage('save-artifacts'){
            archiveArtifacts artifacts: 'target/*.war'
             echo 'Archiving Completed'
-	    def version=${pom.version}
+	    
             def server = Artifactory.server 'jfrog'
             server.bypassProxy = true
             server.username = 'admin'
