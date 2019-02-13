@@ -26,39 +26,12 @@ node{
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
-	    
-	    	
-
-            def uploadSpec = """{
-                "files": [
-                {
-                "pattern": "target/*.war",
-                "target": "maven/"
-                }
-                ]
-                }"""
-            server.upload spec: uploadSpec
-            def downloadSpec = """{
-                "files": [
-                {
-                "pattern": "/target/*.war",
-                "target": "maven/"
-                }
-                ]
-                }"""
-            server.download spec: downloadSpec
-
-            def buildInfo1 = server.download downloadSpec
-            def buildInfo2 = server.upload uploadSpec
-            buildInfo1.append buildInfo2
-            server.publishBuildInfo buildInfo1
-
-            def buildInfo = Artifactory.newBuildInfo()
-            server.download spec: downloadSpec, buildInfo: buildInfo
-            server.upload spec: uploadSpec, buildInfo: buildInfo
-            server.publishBuildInfo buildInfo
-            buildInfo.env.capture = true      
-                    
+	    def server = Artifactory.server 'jfrog'
+def rtMaven = Artifactory.newMavenBuild()
+rtMaven.resolver server: jfrog, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+rtMaven.deployer server: jfrog, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+def buildInfo = rtMaven.run pom: 'buildm/pom.xml', goals: 'clean install'
+                               
         }
         stage('deploy'){
             def userInput = input('Are you sure to Publish in prod?') 
