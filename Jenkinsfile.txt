@@ -27,7 +27,7 @@ node{
             def uploadSpec = """{
                 "files": [
                 {
-                "pattern": "target/*.war",
+                "pattern": "target/*.war.${BUILD_NUMBER}",
                 "target": "maven/"
                 }
                 ]
@@ -36,7 +36,7 @@ node{
             def downloadSpec = """{
                 "files": [
                 {
-                "pattern": "/target/*.war",
+                "pattern": "/target/*.war.${BUILD_NUMBER}",
                 "target": "maven/"
                 }
                 ]
