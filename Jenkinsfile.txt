@@ -65,4 +65,4 @@ node{
 sh 'scp http://3.90.141.166:8081/artifactory/webapp/#/artifacts/browse/tree/General/maven/java-tomcat-maven.v1.1-SNAPSHOT.war /apache-tomcat-7.0.92/webapps'
 echo'reveted back!'
 	}
-    }
+    
