@@ -16,7 +16,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>java-tomcat-maven.${Implementation-Version}</finalName>
+    <finalName>java-tomcat-maven.${version}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
