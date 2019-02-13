@@ -26,10 +26,10 @@ node{
             server.username = 'admin'
             server.password = 'admin'
             server.connection.timeout = 300
-	    def server = Artifactory.server 'jfrog'
+	   
 def rtMaven = Artifactory.newMavenBuild()
-rtMaven.resolver server: jfrog, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-rtMaven.deployer server: jfrog, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
 def buildInfo = rtMaven.run pom: 'buildm/pom.xml', goals: 'clean install'
                                
         }
