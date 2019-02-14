@@ -37,8 +37,8 @@ node{
             def downloadSpec = """{
                 "files": [
                 {
-                "pattern": "/target/*.war",
-                "target": "maven/"
+                "pattern": "target/*.war",
+                "target": "libs-release-local/"
                 }
                 ]
                 }"""
