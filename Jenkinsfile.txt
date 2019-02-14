@@ -59,6 +59,7 @@ node{
         stage('deploy'){
             def userInput = input('Are you sure to Publish in prod?') 
             sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
+	    sh 'scp /var/lib/jenkins/workspace/original/target/*.war /var/lib/jenkins/workspace/original/backup'	   
             echo 'deploying application'
         }
  
