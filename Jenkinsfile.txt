@@ -57,14 +57,16 @@ node{
                     
         }
         stage('deploy'){
-            //def userInput = input('Are you sure to Publish in prod?') 
+	    sh 'scp /var/lib/jenkins/workspace/original/target/*.war /var/lib/jenkins/workspace/original/backup'
+            def userInput = input('Are you sure to Publish in prod?') 
             sh 'scp /var/lib/jenkins/workspace/original/target/*.war /apache-tomcat-7.0.92/webapps'
-	    sh 'scp /var/lib/jenkins/workspace/original/target/*.war /var/lib/jenkins/workspace/original/backup'	   
+	   	   
             echo 'deploying application'
         }
 	node{                
         stage('remote deploy'){
-            sshagent(['tomcat-dev']){
+	def userInput = input('Are you sure to Publish in prod?') 
+        sshagent(['tomcat-dev']){
 sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/original/target/*.war ec2-user@172.31.46.214:/opt/apache-tomcat-7.0.92/webapps'
             
             }
