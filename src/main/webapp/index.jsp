@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>this is second modified war with version to test trigger</h2>
+<h2>sample jenkins pipeline flow</h2>
 </body>
 </html>
