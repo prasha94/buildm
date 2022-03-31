@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>changed in GIT</h2>
+<h2>Azure should trigger this</h2>
 </body>
 </html>
