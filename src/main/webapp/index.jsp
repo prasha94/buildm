@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>CI/CD</h2>
+<h2>Regression testing</h2>
 </body>
 </html>
