@@ -1,4 +1,10 @@
 # Docker
+- task: Docker@2
+  inputs:
+    containerRegistry: 'mydocker'
+    repository: 'prasha94 / sample_images'
+    command: 'buildAndPush'
+    Dockerfile: '**/dockerfile'
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
