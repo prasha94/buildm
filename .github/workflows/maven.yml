@@ -21,10 +21,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: "GitHubActions.com Result Reporter"
-    - uses: dkershner6/githubactions-result-reporter@v1
-      with: 
-        event_result_id: ~
-        status_code: ~
-        status_text: ~
-        trigger_result_id: ~
+
+      
