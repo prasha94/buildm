@@ -20,13 +20,12 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-      
-  upload:
-      runs-on: ubuntu-latest
-      steps:      
-      - name: upload artifacts
-        run: mkdir staging && cp target/*.war staging  
-      - uses: actions/upload-artifact@v3
-        with:
+           
+    - name: copy files
+      run: |
+        mkdir staging && cp target/*.war staging  
+    - name: upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
          name: Package
          path: staging
