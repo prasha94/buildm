@@ -23,7 +23,7 @@ jobs:
            
     - name: copy files
       run: |
-        mkdir staging && cp target/*.war package  
+        mkdir package && cp target/*.war package  
     - name: upload artifacts
       uses: actions/upload-artifact@v3
       with:
