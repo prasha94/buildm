@@ -10,7 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -21,8 +20,13 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Upload artifacts
-      uses: actions/upload-pages-artifact@v1.0.4
-
-
       
+  upload:
+      runs-on: ubuntu-latest
+      steps:      
+      - name: upload artifacts
+        run: mkdir staging && cp target/*.war staging  
+      - uses: actions/upload-artifact@v3
+        with:
+         name: Package
+         path: staging
